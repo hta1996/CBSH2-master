@@ -27,8 +27,8 @@ typedef vector< unordered_set<int64_t> > CAT; // conflict avoidance table
 struct PathEntry
 {
 	int location;
-	bool single;
-	PathEntry(int loc = -1) { location = loc; single = false; }
+	int width;
+	PathEntry(int loc = -1) { location = loc; width=0; }
 };
 
 bool validMove(int curr, int next, int map_size, int num_col);

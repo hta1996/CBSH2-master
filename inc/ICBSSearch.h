@@ -124,6 +124,8 @@ private:
     void chooseConflict2(ICBSNode &parent);
     void chooseConflict3(ICBSNode &parent);
     void chooseConflict3_Old(ICBSNode &parent);
+    void chooseConflict3_Large(ICBSNode &parent);
+
 
 
     

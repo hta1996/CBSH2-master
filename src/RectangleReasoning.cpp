@@ -289,7 +289,7 @@ std::list<int>  getStartCandidates(const std::vector<PathEntry>& path, int times
 	std::list<int> starts;
 	for (int t = 0; t <= timestep; t++) //Find start that is single and Manhattan-optimal to conflicting location
 	{
-		if (path[t].single && isManhattanOptimal(path[t].location, path[timestep].location, timestep - t, num_col))
+		if (path[t].width==1 && isManhattanOptimal(path[t].location, path[timestep].location, timestep - t, num_col))
 			starts.push_back(t);
 	}
 	return starts;
@@ -301,7 +301,7 @@ std::list<int>  getGoalCandidates(const std::vector<PathEntry>& path, int timest
 	std::list<int> goals;
 	for (int t = path.size() - 1; t >= timestep; t--) //Find start that is single and Manhattan-optimal to conflicting location
 	{
-		if (path[t].single && isManhattanOptimal(path[t].location, path[timestep].location, t - timestep, num_col))
+		if (path[t].width==1 && isManhattanOptimal(path[t].location, path[timestep].location, t - timestep, num_col))
 			goals.push_back(t);
 	}
 	return goals;
