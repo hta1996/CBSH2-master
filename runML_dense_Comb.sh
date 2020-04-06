@@ -1,6 +1,6 @@
 mkdir feature5_new
 
-./CBSH2 -m dense/batch5dense/test2.map -o run_dense5_19agent_comb.csv -t 600 -s 1 -h WDG -a dense/batch5dense/test_19_0 -u 4
+./CBSH2 -m dense/batch5dense/test2.map -o tp.csv -t 600 -s 1 -h WDG -a dense/batch5dense/test_19_0 -u 4
 ./CBSH2 -m dense/batch5dense/test2.map -o run_dense5_19agent_comb.csv -t 600 -s 1 -h WDG -a dense/batch5dense/test_19_1 -u 4
 ./CBSH2 -m dense/batch5dense/test2.map -o run_dense5_19agent_comb.csv -t 600 -s 1 -h WDG -a dense/batch5dense/test_19_2 -u 4
 ./CBSH2 -m dense/batch5dense/test2.map -o run_dense5_19agent_comb.csv -t 600 -s 1 -h WDG -a dense/batch5dense/test_19_3 -u 4
