@@ -753,13 +753,13 @@ void ICBSSearch::classifyConflicts(ICBSNode &parent)
 
     // remove conflicts that cannot be chosen, to save some memory
     list<pair<int, int>> highPriorityPairs;
-    /*
+    
     removeLowPriorityConflicts(parent.cardinalConf, highPriorityPairs, paths, ml->cols);
     removeLowPriorityConflicts(parent.rectSemiConf, highPriorityPairs, paths, ml->cols);
     removeLowPriorityConflicts(parent.semiConf, highPriorityPairs, paths, ml->cols);
     removeLowPriorityConflicts(parent.rectNonConf, highPriorityPairs, paths, ml->cols);
     removeLowPriorityConflicts(parent.nonConf, highPriorityPairs, paths, ml->cols);
-    */
+    
     
     while(!parent.allConf.empty())parent.allConf.pop_front();
     //while(!parent.confType.empty())parent.confType.pop_front();
@@ -2525,8 +2525,8 @@ void ICBSSearch::chooseConflict2(ICBSNode &node)
         //int score=h1<h2?h1:h2;
         //int score=(h1+h2)/2;
         typedef long long LL;
-        //double score=(min(h1,h2)+1)*1.0*200*200-minConf;
-        int score=min(h1,h2);
+        double score=(min(h1,h2)+1)*1.0*200*200-minConf;
+        //int score=min(h1,h2);
         //if (useoracle==1 || useoracle==3)
         //score=h1<h2?h1:h2;
         if (useoracle==1)
