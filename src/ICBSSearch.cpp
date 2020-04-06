@@ -753,13 +753,13 @@ void ICBSSearch::classifyConflicts(ICBSNode &parent)
 
     // remove conflicts that cannot be chosen, to save some memory
     list<pair<int, int>> highPriorityPairs;
-    
+    /*
     removeLowPriorityConflicts(parent.cardinalConf, highPriorityPairs, paths, ml->cols);
     removeLowPriorityConflicts(parent.rectSemiConf, highPriorityPairs, paths, ml->cols);
     removeLowPriorityConflicts(parent.semiConf, highPriorityPairs, paths, ml->cols);
     removeLowPriorityConflicts(parent.rectNonConf, highPriorityPairs, paths, ml->cols);
     removeLowPriorityConflicts(parent.nonConf, highPriorityPairs, paths, ml->cols);
-    
+    */
     
     while(!parent.allConf.empty())parent.allConf.pop_front();
     //while(!parent.confType.empty())parent.confType.pop_front();
@@ -1208,9 +1208,9 @@ bool ICBSSearch::runICBSSearch()
             if (useoracle==0||(useoracle==4&&curr->cardinalConf.size()>=1))chooseConflict(*curr);
             //if (useoracle==0||(useoracle==4&&HL_num_expanded%2==0&&curr->cardinalConf.size()>=1))chooseConflict(*curr); // model 4
             //if (useoracle==0||(useoracle==4&&HL_num_expanded%2==0&&curr->cardinalConf.size()>1))chooseConflict(*curr); //model 5
-            //else if (useoracle==4)chooseConflict3(*curr);//large
+            else if (useoracle==4)chooseConflict3(*curr);//large
             //else if (useoracle==4)chooseConflict3_Large(*curr);//large
-            else if (useoracle==4)chooseConflict3_Old(*curr);//feature5
+            //else if (useoracle==4)chooseConflict3_Old(*curr);//feature5
             else  chooseConflict2(*curr);
             if (curr->f_val > focal_list_threshold)
             {
@@ -1975,129 +1975,7 @@ void ICBSSearch::chooseConflict3(ICBSNode &node)
         node.conflict=conflict;
         //updatePaths(&node);
         numC++;
-        //ICBSNode* n1 = new ICBSNode();
-        //ICBSNode* n2 = new ICBSNode();
-        
-        //n1->agent_id = get<0>(*node.conflict);
-        //n2->agent_id = get<1>(*node.conflict);
-        /*
-        if (get<2>(*node.conflict) < 0) // Rectangle conflict
-        {
-            int Rg = -1 - get<2>(*node.conflict);
-            int S1_t = get<3>(*node.conflict);
-            int S2_t = get<4>(*node.conflict);
-            const MDD* mdd1 = buildMDD(node, n1->agent_id);
-            const MDD* mdd2 = buildMDD(node, n2->agent_id);
-            addModifiedBarrierConstraints(*paths[get<0>(*node.conflict)], *paths[get<1>(*node.conflict)],
-                mdd1, mdd2, S1_t, S2_t, Rg, ml->cols, n1->constraints, n2->constraints);
-        }
-        else if (get<3>(*node.conflict) < 0) // vertex conflict
-        {
-            n1->constraints.push_back(make_tuple(get<2>(*node.conflict), -1, get<4>(*node.conflict)));
-            n2->constraints.push_back(make_tuple(get<2>(*node.conflict), -1, get<4>(*node.conflict)));
-        }
-        else // edge conflict
-        {
-            n1->constraints.push_back(make_tuple(get<2>(*node.conflict), get<3>(*node.conflict), get<4>(*node.conflict)));
-            n2->constraints.push_back(make_tuple(get<3>(*node.conflict), get<2>(*node.conflict), get<4>(*node.conflict)));
-        }
-         
-        bool Sol1 = false, Sol2 = false;
-        vector<vector<PathEntry>*> copy(paths);
-        Sol1 = generateChild(n1, &node,1);
-        if (screen == 3 && Sol1)
-        {
-            std::cout << "Generate #" << n1->time_generated
-                << " with cost " << n1->g_val
-                << " and " << n1->num_of_collisions << " conflicts " << std::endl;
-        }
-        int h1=1e8,h2=1e8;
-        
-        int maxscore_1,maxscore_2;
-        int minconf_1,minconf_2;
-        
-        if (Sol1 && n1->f_val == min_f_val && n1->num_of_collisions == 0) //no conflicts
-        {// found a solution (and finish the while look)
-            //solution_found = true;
-            //solution_cost = n1->g_val;
-            //goal_node = n1;
-            //break;
-            h1=n1->g_val;
-        }
-        else if(!Sol1)
-        {
-            delete (n1);
-            n1 = NULL;
-        }else if (useoracle==1 || useoracle==3)
-        {
-            updatePaths(n1);
-            classifyConflicts(*n1);
-            h1=computeHeuristics(*n1);
-            n1->h_val = std::max(h1, n1->h_val); // use consistent h values
-            n1->f_val = n1->g_val + n1->h_val;
-            h1=n1->f_val;
-            n1->clear();
-        }else h1=n1->num_of_collisions;
-            
-        
-        
-        paths = copy;
-        Sol2 = generateChild(n2, &node,1);
-        if (screen == 3 && Sol2)
-        {
-            std::cout << "Generate #" << n2->time_generated
-                << " with cost " << n2->g_val
-                << " and " << n2->num_of_collisions << " conflicts " << std::endl;
-
-        }
-        if (Sol2 && n2->f_val == min_f_val && n2->num_of_collisions == 0) //no conflicts
-        {// found a solution (and finish the while look)
-            //solution_found = true;
-            //solution_cost = n2->g_val;
-            //goal_node = n2;
-            h2=n2->g_val;
-            //break;
-        }
-        else if(!Sol2)
-        {
-            delete (n2);
-            n2 = NULL;
-        }else if (useoracle==1 || useoracle==3)
-        {
-            updatePaths(n2);
-            classifyConflicts(*n1);
-            h2=computeHeuristics(*n2);
-            n2->h_val = std::max(h2, n2->h_val); // use consistent h values
-            n2->f_val = n2->g_val + n2->h_val;
-            h2=n2->f_val;
-            n2->clear();
-        }else h2=n2->num_of_collisions;
-        paths = copy;
-        
-        if (h1>1e7&&h2>1e7)continue;
-        //int score=h1<h2?h1:h2;
-        //int score=(h1+h2)/2;
-        int score;
-        //if (useoracle==1 || useoracle==3)
-        score=h1<h2?h1:h2;
-        if (useoracle==1)
-        {
-            if (maxScore < score)
-            {
-                chosenConflict=conflict;
-                maxScore = score;
-            }
-        }else
-        {
-            if (minScore > score)
-            {
-                chosenConflict=conflict;
-                minScore = score;
-            }
-        }
-        if (maxScore < score)maxScore=score;
-        if (minScore > score)minScore=score;
-        */
+     
         int score=0;
             
         int K=5;
@@ -2357,7 +2235,7 @@ void ICBSSearch::chooseConflict3(ICBSNode &node)
     //}
     
     // command ./svm_rank_classify inRunFeature.txt featureMax5/model inRunPrediction.txt
-    system("./svm_rank_classify inRunFeature.txt featureMax5/model inRunPrediction.txt");
+    system("./svm_rank_classify inRunFeature.txt featureMax5/modelcombined inRunPrediction.txt");
     //system("./svm_rank_classify inRunFeature.txt featureLarge100/model inRunPrediction.txt");
     int currScore=-1e9;
     freopen("inRunPrediction.txt","r",stdin);

@@ -29,6 +29,8 @@ iostream
 -
 fstream
 -
+cstdio
+-
 RectangleReasoning.h
 /Users/apple/Desktop/hta/Courses/USC/MLandOpt/Project/CBSH2-master/src/RectangleReasoning.h
 
