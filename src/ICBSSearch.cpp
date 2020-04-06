@@ -2525,7 +2525,8 @@ void ICBSSearch::chooseConflict2(ICBSNode &node)
         //int score=h1<h2?h1:h2;
         //int score=(h1+h2)/2;
         typedef long long LL;
-        double score=(min(h1,h2)+1)*1.0*200*200-minConf;
+        //double score=(min(h1,h2)+1)*1.0*200*200-minConf;
+        double score=min(h1,h2);
         //if (useoracle==1 || useoracle==3)
         //score=h1<h2?h1:h2;
         if (useoracle==1)
