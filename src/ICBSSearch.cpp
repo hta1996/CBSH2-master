@@ -2446,6 +2446,7 @@ void ICBSSearch::chooseConflict2(ICBSNode &node)
             
             //score
             features.push_back(score);
+            features.push_back(min(h1,h2));
 
             //current makespan (1)
             //features.push_back(currentmakespan);//1
