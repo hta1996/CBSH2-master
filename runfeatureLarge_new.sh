@@ -1,3 +1,8 @@
+#!/bin/sh
+#SBATCH --ntasks=1
+#SBATCH --time=40:00:00
+
+
 ./CBSH2 -m instances/lak503d.map -o tmplarge100_new.csv -t 7200 -s 1 -h WDG -a instances/lak503dmap-100agents-0.agents -u 1 --collect 1 --feature featureLarge100/featureLarge100new_0.txt
 ./CBSH2 -m instances/lak503d.map -o tmplarge100_new.csv -t 7200 -s 1 -h WDG -a instances/lak503dmap-100agents-1.agents -u 1 --collect 1 --feature featureLarge100/featureLarge100new_1.txt
 ./CBSH2 -m instances/lak503d.map -o tmplarge100_new.csv -t 7200 -s 1 -h WDG -a instances/lak503dmap-100agents-2.agents -u 1 --collect 1 --feature featureLarge100/featureLarge100new_2.txt
@@ -15,7 +20,7 @@
 ./CBSH2 -m instances/lak503d.map -o tmplarge100_new.csv -t 7200 -s 1 -h WDG -a instances/lak503dmap-100agents-14.agents -u 1 --collect 1 --feature featureLarge100/featureLarge100new_14.txt
 ./CBSH2 -m instances/lak503d.map -o tmplarge100_new.csv -t 7200 -s 1 -h WDG -a instances/lak503dmap-100agents-15.agents -u 1 --collect 1 --feature featureLarge100/featureLarge100new_15.txt
 ./CBSH2 -m instances/lak503d.map -o tmplarge100_new.csv -t 7200 -s 1 -h WDG -a instances/lak503dmap-100agents-16.agents -u 1 --collect 1 --feature featureLarge100/featureLarge100new_16.txt
-./CBSH2 -m instances/lak503d.map -o tmplarge100_new.csv -t 7200 -s 1 -h WDG -a instances/lak503dmap-100agents-17.agents -u 1 --collect 1 --feature featureLarge100/featureLarge100new_17.txtmak
+./CBSH2 -m instances/lak503d.map -o tmplarge100_new.csv -t 7200 -s 1 -h WDG -a instances/lak503dmap-100agents-17.agents -u 1 --collect 1 --feature featureLarge100/featureLarge100new_17.txt
 ./CBSH2 -m instances/lak503d.map -o tmplarge100_new.csv -t 7200 -s 1 -h WDG -a instances/lak503dmap-100agents-18.agents -u 1 --collect 1 --feature featureLarge100/featureLarge100new_18.txt
 ./CBSH2 -m instances/lak503d.map -o tmplarge100_new.csv -t 7200 -s 1 -h WDG -a instances/lak503dmap-100agents-19.agents -u 1 --collect 1 --feature featureLarge100/featureLarge100new_19.txt
 
