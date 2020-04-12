@@ -1965,7 +1965,8 @@ void ICBSSearch::chooseConflict3(ICBSNode &node)
     int minScore=1e8;
     std::shared_ptr<Conflict> chosenConflict;
     int numC=-1;
-    
+    int numCard=node.cardinalConf.size();
+    //if(numCard<=1)numCard=1e8;
     freopen("inRunFeature.txt","w",stdout);//open output file
 
     int featureSize=0;
@@ -1975,6 +1976,8 @@ void ICBSSearch::chooseConflict3(ICBSNode &node)
         node.conflict=conflict;
         //updatePaths(&node);
         numC++;
+        //if(numCard>1&&node.confType[numC]!=1)break;
+        
      
         int score=0;
             
@@ -2236,13 +2239,17 @@ void ICBSSearch::chooseConflict3(ICBSNode &node)
     
     // command ./svm_rank_classify inRunFeature.txt featureMax5/model inRunPrediction.txt
     system("./svm_rank_classify inRunFeature.txt featureMax5/modelcombined inRunPrediction.txt");
+    //system("./svm_rank_classify inRunFeature.txt featureMax/mode2 inRunPrediction.txt");//map 3 and map 5
     //system("./svm_rank_classify inRunFeature.txt featureLarge100/model inRunPrediction.txt");
-    int currScore=-1e9;
+    int currScore=-1e9;numC=-1;
     freopen("inRunPrediction.txt","r",stdin);
     for (std::shared_ptr<Conflict> conflict: node.allConf)
     {
         double score;
-        scanf("%lf",&score);
+        numC++;
+        //if(numC>=numCard)break;
+        //if(numCard>1&&node.confType[numC]!=1)break;
+        if(scanf("%lf",&score)==EOF){cerr<<"EOF"<<endl;exit(0);};
         //cerr<<score<<" ";
         if(score>currScore)
         {
