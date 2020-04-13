@@ -1123,6 +1123,14 @@ bool ICBSSearch::runICBSSearch()
     start = std::clock();
     std::clock_t t1;
 
+    if(useoracle==4){
+       svm_rank.resize(100,0);
+       freopen(svm_file.c_str(),"r",stdin);
+       int id;double weight;
+       while(scanf("%d %lf",&id,&weight)!=EOF)svm_rank[id-1]=weight;
+       fclose(stdin);
+    }
+       
     // start is already in the open_list
     while (!focal_list.empty() && !solution_found)
     {
@@ -1967,7 +1975,7 @@ void ICBSSearch::chooseConflict3(ICBSNode &node)
     int numC=-1;
     int numCard=node.cardinalConf.size();
     //if(numCard<=1)numCard=1e8;
-    freopen("inRunFeature.txt","w",stdout);//open output file
+    //freopen("inRunFeature.txt","w",stdout);//open output file
 
     int featureSize=0;
     updatePaths(&node);
@@ -2219,6 +2227,8 @@ void ICBSSearch::chooseConflict3(ICBSNode &node)
     }
     puts("");*/
     vector<double> norm(featureSize,0);
+    vector<double> score_feat;
+    score_feat.clear();
     for(auto features:featureSet)
     {
         for(int i=0;i<features.size();i++)
@@ -2228,12 +2238,15 @@ void ICBSSearch::chooseConflict3(ICBSNode &node)
         if(norm[i]<1e-8)norm[i]=1;
     for(auto features:featureSet)
     {
-        printf("0 qid:1 ");
+        //printf("0 qid:1 ");
+        double score=0;
         for(int i=1;i<=features.size();i++)
-            printf("%d:%.4lf ",i,features[i-1]/norm[i-1]);
-        puts("");
+            score+=svm_rank[i-1]*features[i-1]/norm[i-1];
+            //printf("%d:%.4lf ",i,features[i-1]/norm[i-1]);
+        //puts("");
+        score_feat.push_back(score);
     }
-    fclose(stdout);
+    //fclose(stdout);
     //exit(0);
     //}
     
@@ -2241,16 +2254,19 @@ void ICBSSearch::chooseConflict3(ICBSNode &node)
     //system("./svm_rank_classify inRunFeature.txt featureMax5/modelcombined inRunPrediction.txt");
     //system("./svm_rank_classify inRunFeature.txt featureMax/mode2 inRunPrediction.txt");//map 3 and map 5
     //system("./svm_rank_classify inRunFeature.txt featureLarge100/model inRunPrediction.txt");
-    system("./svm_rank_classify inRunFeature.txt featureLarge100/large_comb inRunPrediction.txt");
+    //system("./svm_rank_classify inRunFeature.txt featureLarge100/large_comb inRunPrediction.txt");
+    
+    
     int currScore=-1e9;numC=-1;
-    freopen("inRunPrediction.txt","r",stdin);
+    //freopen("inRunPrediction.txt","r",stdin);
     for (std::shared_ptr<Conflict> conflict: node.allConf)
     {
-        double score;
         numC++;
+        double score=score_feat[numC];
+        
         //if(numC>=numCard)break;
         //if(numCard>1&&node.confType[numC]!=1)break;
-        if(scanf("%lf",&score)==EOF){cerr<<"EOF"<<endl;exit(0);};
+        //if(scanf("%lf",&score)==EOF){cerr<<"EOF"<<endl;exit(0);};
         //cerr<<score<<" ";
         if(score>currScore)
         {
@@ -2260,7 +2276,7 @@ void ICBSSearch::chooseConflict3(ICBSNode &node)
     }
     //cerr<<node.allConf.size()<<endl;
     
-    fclose(stdin);
+    //fclose(stdin);
     //exit(0);
     node.conflict = chosenConflict;
     chooseConflictTime+=(std::clock() - t1) * 1000.0/ CLOCKS_PER_SEC;
@@ -2752,6 +2768,8 @@ ICBSSearch::ICBSSearch(const MapLoader* ml, vector<SingleAgentICBS*>& search_eng
     int rr=ml->rows;
     int cc=ml->cols;
     countResolveforNode.resize(rr*cc,0);
+    
+   
     
     solution_found = false;
     solution_cost = -2;

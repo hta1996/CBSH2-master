@@ -43,6 +43,7 @@ int main(int argc, char** argv)
 		("warehouseWidth,b", po::value<int>()->default_value(0), "width of working stations on both sides, for generating instacnes")
         ("useoracle,u", po::value<int>()->default_value(0), "use oracle or not")//1: maxscore 2: minconf 3: minscore 4: ML
         ("collect", po::value<bool>()->default_value(0), "collecting features or not")
+        ("model", po::value<std::string>()->default_value("tp"), "path to the ML model")
 	;
 
 	po::variables_map vm;
@@ -85,6 +86,7 @@ int main(int argc, char** argv)
 		vm["cutoffTime"].as<int>() * 1000, vm["screen"].as<int>());
     cerr<<vm["screen"].as<int>()<<endl;
     icbs.featureFile=vm["feature"].as<string>();
+    icbs.svm_file=vm["model"].as<string>();
     freopen(icbs.featureFile.c_str(),"w",stdout);
     fclose(stdout);
     

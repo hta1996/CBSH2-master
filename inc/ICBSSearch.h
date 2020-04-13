@@ -45,6 +45,7 @@ public:
 	uint64_t not_cardinal_heuristic_value = 0; // heuristics by 2-agent path finding  for not-cardinal conflicts
 	double build_mdds_runtime = 0; // heuristics by 2-agent path finding  for not-cardinal conflicts
     std::string featureFile;
+    std::string svm_file;
 	bool solution_found = false;
 	int solution_cost = -2;
 	double min_f_val;
@@ -93,6 +94,7 @@ private:
     vector<double> countResolveforAgent; // num of conflicts picked so far for each agent
     vector<double> countResolveforNode; //num of conflicts picked so far for each node
     vector<double> shortestPathLen;
+    vector<double> svm_rank;
 	// Logs
 	vector<int> sum_h_vals; // sum of heuristics for the CT nodes at level t
 	vector<int> sum_f_vals; // sum of f values for the CT nodes at level t
