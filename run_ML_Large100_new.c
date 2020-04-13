@@ -1,6 +1,5 @@
 #include "mpi.h"
 #include <string.h>
-#include <bits/stdc++.h> 
 int main (int argc, char *argv[])
 {
     int i, rank, size, namelen;
@@ -13,12 +12,12 @@ int main (int argc, char *argv[])
     MPI_Get_processor_name (name, &namelen);
 
     char str1[300]="./CBSH2 -m instances/lak503d.map -o run_large_new.csv -t 3700 -s 1 -h WDG -a instances/lak503dmap-100agents-";
-    char str2[300]=".agents -u 4"
+    char str2[300]=".agents -u 4";
     char strnum[300];
     printf ("Running from task %d on %s!\n", rank, name);
     sprintf(strnum, "%d", rank);
     char command[300];
-    char sleep[300]="sleep";
+    char sleep[300]="sleep ";
     memset(command,0,sizeof(command));
     strcat(command,str1);
     strcat(command,strnum);
