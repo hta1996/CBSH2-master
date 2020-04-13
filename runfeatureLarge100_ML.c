@@ -12,12 +12,12 @@ int main (int argc, char *argv[])
     MPI_Comm_rank (MPI_COMM_WORLD, &rank);
     MPI_Get_processor_name (name, &namelen);
 
-    char str1[200]="./CBSH2 -m instances/lak503d.map -o run_large_comb.csv -t 3600 -s 1 -h WDG -a instances/lak503dmap-100agents-";
-    char str2[200]=".agents -u 1"
-    char strnum;
+    char str1[300]="./CBSH2 -m instances/lak503d.map -o run_large_comb.csv -t 3600 -s 1 -h WDG -a instances/lak503dmap-100agents-";
+    char str2[300]=".agents -u 1"
+    char strnum[300];
     printf ("Running from task %d on %s!\n", rank, name);
     sprintf(strnum, "%d", rank);
-    char command[200];
+    char command[300];
     memset(command,0,sizeof(command));
     strcat(command,str1);
     strcat(command,strnum);
@@ -31,6 +31,7 @@ int main (int argc, char *argv[])
 
 }
 /*
+ ./CBSH2 -m instances/lak503d.map -o run_large_comb.csv -t 3600 -s 1 -h WDG -a instances/lak503dmap-100agents-0.agents -u 1
 #./CBSH_Large_ML3 -m instances/lak503d.map -o runML_large_100_4.csv -t 5400 -s 1 -h WDG -a instances/lak503dmap-100agents-10.agents -u 4
 #./CBSH_Large_ML3 -m instances/lak503d.map -o runML_large_100_4.csv -t 5400 -s 1 -h WDG -a instances/lak503dmap-100agents-11.agents -u 4
 #./CBSH_Large_ML3 -m instances/lak503d.map -o runML_large_100_4.csv -t 5400 -s 1 -h WDG -a instances/lak503dmap-100agents-12.agents -u 4

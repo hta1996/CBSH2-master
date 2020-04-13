@@ -2238,9 +2238,10 @@ void ICBSSearch::chooseConflict3(ICBSNode &node)
     //}
     
     // command ./svm_rank_classify inRunFeature.txt featureMax5/model inRunPrediction.txt
-    system("./svm_rank_classify inRunFeature.txt featureMax5/modelcombined inRunPrediction.txt");
+    //system("./svm_rank_classify inRunFeature.txt featureMax5/modelcombined inRunPrediction.txt");
     //system("./svm_rank_classify inRunFeature.txt featureMax/mode2 inRunPrediction.txt");//map 3 and map 5
     //system("./svm_rank_classify inRunFeature.txt featureLarge100/model inRunPrediction.txt");
+    system("./svm_rank_classify inRunFeature.txt featureLarge100/large_comb inRunPrediction.txt");
     int currScore=-1e9;numC=-1;
     freopen("inRunPrediction.txt","r",stdin);
     for (std::shared_ptr<Conflict> conflict: node.allConf)
