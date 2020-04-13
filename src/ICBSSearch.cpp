@@ -2293,8 +2293,8 @@ void ICBSSearch::chooseConflict2(ICBSNode &node)
     std::vector<double> featureScore;
     featureSet.clear();featureScore.clear();
     clock_t t1=std::clock();
-    int maxScore=-1;
-    int minScore=1e8;
+    double maxScore=-1;
+    double minScore=1e8;
     
     std::shared_ptr<Conflict> chosenConflict;
     int numC=-1;
@@ -2411,7 +2411,7 @@ void ICBSSearch::chooseConflict2(ICBSNode &node)
         //int score=(h1+h2)/2;
         typedef long long LL;
         double score=(min(h1,h2)+1)*1.0*200*200-minConf;
-        //int score=min(h1,h2);
+        //double score=min(h1,h2);
         //if (useoracle==1 || useoracle==3)
         //score=h1<h2?h1:h2;
         if (useoracle==1)
@@ -2446,7 +2446,7 @@ void ICBSSearch::chooseConflict2(ICBSNode &node)
             
             //score
             features.push_back(score);
-            features.push_back(min(h1,h2));
+            //features.push_back(min(h1,h2));
 
             //current makespan (1)
             //features.push_back(currentmakespan);//1
