@@ -18,10 +18,13 @@ int main (int argc, char *argv[])
     printf ("Running from task %d on %s!\n", rank, name);
     sprintf(strnum, "%d", rank);
     char command[300];
+    char sleep[300]="sleep";
     memset(command,0,sizeof(command));
     strcat(command,str1);
     strcat(command,strnum);
     strcat(command,str2);
+    strcat(sleep,strnum);
+    system(sleep);
     system(command);
     
     if (rank == 0 )
