@@ -1213,7 +1213,7 @@ bool ICBSSearch::runICBSSearch()
                 curr->printConflictGraph(num_of_agents);
 
             //if (useoracle==0 or rand()%10==0)chooseConflict(*curr);
-            if (useoracle==0||(0&&useoracle==4&&curr->cardinalConf.size()>=1))chooseConflict(*curr);
+            if (useoracle==0||(useoracle==4&&curr->cardinalConf.size()>1))chooseConflict(*curr);
             //if (useoracle==0||(useoracle==4&&HL_num_expanded%2==0&&curr->cardinalConf.size()>=1))chooseConflict(*curr); // model 4
             //if (useoracle==0||(useoracle==4&&HL_num_expanded%2==0&&curr->cardinalConf.size()>1))chooseConflict(*curr); //model 5
             else if (useoracle==4)chooseConflict3(*curr);//large
@@ -1984,7 +1984,7 @@ void ICBSSearch::chooseConflict3(ICBSNode &node)
         node.conflict=conflict;
         //updatePaths(&node);
         numC++;
-        if(numCard>1&&node.confType[numC]!=1)break;
+        //if(numCard>1&&node.confType[numC]!=1)break;
         
      
         int score=0;
@@ -2265,7 +2265,7 @@ void ICBSSearch::chooseConflict3(ICBSNode &node)
         double score=score_feat[numC];
         
         //if(numC>=numCard)break;
-        if(numCard>1&&node.confType[numC]!=1)break;
+        //if(numCard>1&&node.confType[numC]!=1)break;
         //if(scanf("%lf",&score)==EOF){cerr<<"EOF"<<endl;exit(0);};
         //cerr<<score<<" ";
         if(score>currScore)
