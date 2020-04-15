@@ -26,6 +26,7 @@ int main (int argc, char *argv[])
     strcat(command,strnum);
     strcat(command,str3);
     strcat(sleep,strnum);
+    
     system(sleep);
     system(command);
     
