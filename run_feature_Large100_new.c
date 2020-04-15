@@ -37,7 +37,7 @@ int main (int argc, char *argv[])
 
 }
 /*
- ./CBSH2 -m instances/lak503d.map -o tmplarge100_new.csv -t 7200 -s 1 -h WDG -a instances/lak503dmap-100agents-0.agents -u 1 --collect 1 --feature featureLarge100/featureLarge100new_0.txt
+ ./CBSH2 -m instances/lak503d.map -o tmplarge100_new.csv -t 7200 -s 1 -h WDG -a instances/lak503dmap-100agents-0.agents -u 1 --collect 1 --feature featureLarge100/featureLarge100new2_0.txt
 
 ./CBSH2 -m instances/lak503d.map -o tp_new.csv -t 3700 -s 1 -h WDG -a instances/lak503dmap-100agents-0.agents -u 4 --model featureLarge100/large_comb
  #./CBSH_Large_ML3 -m instances/lak503d.map -o runML_large_100_4.csv -t 5400 -s 1 -h WDG -a instances/lak503dmap-100agents-10.agents -u 4
