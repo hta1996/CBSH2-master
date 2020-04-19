@@ -1213,7 +1213,7 @@ bool ICBSSearch::runICBSSearch()
                 curr->printConflictGraph(num_of_agents);
 
             //if (useoracle==0 or rand()%10==0)chooseConflict(*curr);
-            if (useoracle==0||(useoracle==4&&curr->cardinalConf.size()>1))chooseConflict(*curr);
+            if (useoracle==0||(useoracle==4&&curr->cardinalConf.size()>=1))chooseConflict(*curr);
             //if (useoracle==0||(useoracle==4&&HL_num_expanded%2==0&&curr->cardinalConf.size()>=1))chooseConflict(*curr); // model 4
             //if (useoracle==0||(useoracle==4&&HL_num_expanded%2==0&&curr->cardinalConf.size()>1))chooseConflict(*curr); //model 5
             else if (useoracle==4)chooseConflict3(*curr);//large

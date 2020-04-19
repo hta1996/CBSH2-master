@@ -180,7 +180,7 @@ def printNode():
     
 
 
-def printA(BL,ML,name,Feat):
+def printA(BL,ML,MLnew,MLcomb,name,Feat):
     FTsize=20
     NBsize=15
     LBsize=25
@@ -196,6 +196,13 @@ def printA(BL,ML,name,Feat):
     #plt.errorbar(x,t1,yerr=te1/3,fmt='o',ecolor='g',color='g',elinewidth=2,capsize=4,alpha=0.5)
 
     plt.plot(x,ML,'y*-',mew=1,linewidth=1,label="ML-guided")
+    x=[i for i in range(20,25)]
+    x=np.array(x)
+    plt.plot(x,MLnew,'r+-',mew=1,linewidth=1,label="ML-guided new")
+    
+    plt.plot(x,MLcomb,'b^-',mew=1,linewidth=1,label="ML-guided comb")
+
+
     #plt.errorbar(x-0.1,t2,yerr=te2/3,fmt='*',ecolor='y',color='y',elinewidth=2,capsize=4)
 
     #plt.plot(x,t3,'r+-',mew=1,linewidth=1,label="T-Sampling")
@@ -207,7 +214,7 @@ def printA(BL,ML,name,Feat):
 
     plt.xticks(x,fontsize=NBsize)
     plt.yticks(fontsize=NBsize)
-    #plt.legend(fontsize=FTsize,bbox_to_anchor=(0.6,0.4))
+    plt.legend(fontsize=FTsize,bbox_to_anchor=(0.6,0.4))
     plt.xlabel("#Agents",fontsize=LBsize)
     plt.ylabel(Feat,fontsize=LBsize)
     plt.savefig(name+".png")
@@ -233,19 +240,24 @@ def plotdiffbar(x):
 
 Baselinediff=[0.1,0.075,0.1,0,0.1,-0.025,0.18,0.375]
 plotdiffbar(Baselinediff)
-exit()
 
 BaselineTime=[1.01,1.15,1.02,0.95,1.48,1.46,1.91,1.65]
 MLTime=[0.64,0.71,0.83,0.67,0.96,1.15,0.51,0.93]
-printA(BaselineTime,MLTime,"runtime","Runtime/min")
+MLnewTime=[0.675,1.42,1.13,1.38,1.29]
+MLcombTime=[0.91,1.47,1.29,1.35,1.35]
+printA(BaselineTime,MLTime,MLnewTime,MLcombTime,"runtime","Runtime/min")
 
 BaselineSize=[1958,5544,10160,10067,21753,18284,26048,25815]
+MLnewSize=[4002,11456,10446,9402,10639]
+MLcombSize=[6067,16734,9708,8504,12523]
 MLSize=[1639,2352,6125,4573,9228,10162,5479,9888]
-#printA(BaselineSize,MLSize,"Treesize","Treesize")
+printA(BaselineSize,MLSize,MLnewSize,MLcombSize,"Treesize","Treesize")
 
 BaselineRate=[85,70,67.5,72.5,65,50,37.5,37.5]
 MLRate=[87.5,70,67.5,72.5,67.5,52.5,42.5,40]
-printA(BaselineRate,MLRate,"SuccesRate","Success Rate/%")
+MLnewRate=[72.5,65,52.5,45,42.5]
+MLcombRate=[70,62.5,50,45,40]
+printA(BaselineRate,MLRate,MLnewRate,MLcombRate,"SuccesRate","Success Rate/%")
 
 
 
